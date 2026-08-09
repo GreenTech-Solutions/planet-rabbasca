@@ -298,9 +298,9 @@ data:extend {
     requires_ingredients_to_unlock_results = false,
     hide_from_player_crafting = true,
     results = { 
-      { type = "item", name = "haronite-plate", amount = 1 },
-      { type = "item", name = "rabbasca-warp-core", amount = 1 },
-      { type = "item", name = "rabbasca-warp-pylon", amount = 1 },
+      { type = "item", name = "haronite-plate", amount = 0 },
+      { type = "item", name = "rabbasca-warp-core", amount = 0 },
+      { type = "item", name = "rabbasca-warp-pylon", amount = 0 },
     },
     main_product = "rabbasca-warp-pylon"
   }
