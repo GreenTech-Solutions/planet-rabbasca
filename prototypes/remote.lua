@@ -292,11 +292,12 @@ data:extend {
     type = "recipe",
     name = "rabbasca-warp-pylon-indicator",
     enabled = false,
-    categories = { "parameters" }, -- can not be crafted, just for unlocking the icon in menus?
+    categories = { "parameters" }, -- for unlocking filters and factoriopedia entries
     hidden_in_factoriopedia = true,
     hidden = true,
     requires_ingredients_to_unlock_results = false,
     hide_from_player_crafting = true,
+    -- hidden but potentially craftable via "set recipe" to one of the results. Set all amounts to 0 to prevent
     results = { 
       { type = "item", name = "haronite-plate", amount = 0 },
       { type = "item", name = "rabbasca-warp-core", amount = 0 },
