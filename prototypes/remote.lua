@@ -287,6 +287,11 @@ make_warp_sequence("rabbasca-warp-sequence-upgrade", data.raw["upgrade-item"]["u
 local uplink = data.raw["logistic-container"]["rabbasca-warp-uplink"]
 PlanetsLib.create_planet_entity_variant("space-platform", uplink, { render_not_in_network_icon = false }, "rabbasca-entity-replacements")
 
+local warpers = data.raw["mod-data"]["rabbasca-warpers"].data
+warpers.pylons["rabbasca-warp-pylon"] = true
+warpers.uplinks["rabbasca-warp-uplink"] = true
+warpers.uplinks["rabbasca-warp-uplink-PlanetsLib-space-platform"] = true
+
 data:extend {
   {
     type = "recipe",

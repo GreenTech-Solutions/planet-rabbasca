@@ -69,9 +69,9 @@ script.on_event(build_events, function(event)
   if e.name == "entity-ghost"
   or e.name == "tile-ghost" then
     M.mark_chunk_dirty(e.surface_index, M.chunk_id(e.position))
-  elseif e.name == "rabbasca-warp-pylon" then
+  elseif Rabbasca.warpers.pylons[e.name] then
     M.register_pylon(e)
-  elseif e.name == "rabbasca-warp-uplink" then
+  elseif Rabbasca.warpers.uplinks[e.name] then
     table.insert(storage.inventory_warpers, e)
     local sections = e.get_logistic_sections()
     if not sections then return end
@@ -84,7 +84,7 @@ script.on_event(build_events, function(event)
 end)
 
 script.on_event(defines.events.script_raised_teleported, function(event)
-  if event.entity.name == "rabbasca-warp-pylon" then
+  if Rabbasca.warpers.pylons[event.entity.name] then
     M.unregister_pylon(event.entity.unit_number)
     M.register_pylon(event.entity)
   end

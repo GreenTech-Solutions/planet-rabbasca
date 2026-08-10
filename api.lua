@@ -2,7 +2,18 @@ if Rabbasca then return end
 
 Rabbasca = { 
     bunnyhop = { },
+    warpers  = helpers.stage == "runtime" and prototypes.mod_data["rabbasca-warpers"].data,
+    warper_names = helpers.stage == "runtime" and { pylons = { }, uplinks = { } }
 }
+
+if helpers.stage == "runtime" then
+    for name, _ in pairs(Rabbasca.warpers.pylons) do
+        table.insert(Rabbasca.warper_names.pylons, name)
+    end
+    for name, _ in pairs(Rabbasca.warpers.uplinks) do
+        table.insert(Rabbasca.warper_names.uplinks, name)
+    end
+end
 
 -- shorthands for settings
 function Rabbasca.is_aps_planet() return settings.startup["aps-planet"] and settings.startup["aps-planet"].value == "rabbasca" end

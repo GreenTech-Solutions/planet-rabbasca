@@ -28,4 +28,5 @@ end
 require("compatibility.canal-excavator")
 require("compatibility.rabbasca-hard-science")
 require("compatibility.quality")
+-- require("compatibility.maraxsis")
 -- require("compatibility.msppr")

@@ -91,7 +91,7 @@ script.on_event(defines.events.on_gui_opened, function(event)
     if not event.entity or not event.entity.valid then return end
 
     local entity = event.entity
-    if not (entity.name == "rabbasca-warp-pylon" or entity.name == "rabbasca-warp-uplink") then return end
+    if not(entity.valid and (Rabbasca.warpers.uplinks[entity.name] or Rabbasca.warpers.pylons[entity.name])) then return end
 
     local player = game.get_player(event.player_index)
     if not player then return end

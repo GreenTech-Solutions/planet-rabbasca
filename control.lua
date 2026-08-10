@@ -8,7 +8,7 @@ local function handle_script_events(event)
   local effect_id = event.effect_id
   if effect_id == "rabbasca_on_warp_attempt" then
     local from = Rabbasca.get_spoiled_in(event)
-    if not (from and from.name == "rabbasca-warp-pylon") then return end
+    if not (from and Rabbasca.warpers.pylons[from.name]) then return end
     warp.attempt_build_ghost(from)
   elseif effect_id == "rabbasca_register_alertable" then
     local from = event.source_entity or event.target_entity
