@@ -218,9 +218,9 @@ local vault_crafter = {
   },
   map_color = {0.3, 1, 0.5},
   enemy_map_color = {1, 0.1, 0.15},
-  map_generator_bounding_box = {{-16, -16}, {16, 16}},
-  collision_box = {{-2.4, -1.9},{2.4, 2.2}},
-  selection_box = {{-2.5, -2.5},{2.5, 2.5}},
+  map_generator_bounding_box = {{-8, -8}, {8, 8}},
+  collision_box = {{-2.4, -1.9},{2.4, 1.9}},
+  selection_box = {{-2.5, -2},{2.5, 2}},
   selection_priority = 45,
   subgroup = "enemies",
   order = "r[rabbasca]-a",
@@ -246,6 +246,7 @@ local vault_crafter = {
   icon_draw_specification = data.raw["assembling-machine"]["foundry"].icon_draw_specification,
   icons_positioning = data.raw["assembling-machine"]["foundry"].icons_positioning,
   resistances = vault_resistances,
+  tall = true,
   graphics_set = {
     animation = {
         filename = "__Krastorio2Assets__/buildings/stabilizer-charging-station/stabilizer-charging-station.png",
@@ -254,7 +255,8 @@ local vault_crafter = {
         height = 170,
         frame_count = 80,
         line_length = 10,
-        scale = 1.5
+        shift = {0, -0.5},
+        scale = 1.25
     },
     idle_animation = {
         filename = "__Krastorio2Assets__/buildings/stabilizer-charging-station/stabilizer-charging-station.png",
@@ -263,7 +265,8 @@ local vault_crafter = {
         height = 170,
         frame_count = 80,
         line_length = 10,
-        scale = 1.5
+        shift = {0, -0.5},
+        scale = 1.25
     },
   },
   created_effect = {
@@ -276,7 +279,7 @@ local vault_crafter = {
         {
           type = "create-entity",
           entity_name = "rabbasca-vault-spawner",
-          offsets = {{2, 2.2}},
+          offsets = {{1.5, 1.75}},
           protected = true,
         },
       }
@@ -297,8 +300,8 @@ local pylon = util.merge{
   name = "rabbasca-vault-warp-spawner",
   icon = "__rabbasca-assets__/graphics/by-hurricane/conduit-icon-2.png",
   icon_size = 64,
-  max_health = 2336, -- will be much higher due to evolution
-  healing_per_tick = -120 / second,
+  max_health = 1200, -- will be much higher due to evolution
+  healing_per_tick = -50 / second,
   spawning_cooldown = {5 * second, 1.5 * second},
   time_to_capture = 50 * second,
   max_count_of_owned_units = 16,

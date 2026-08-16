@@ -1,6 +1,10 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.21.06
+Version: 0.22.0
 Date: ????
+  Changes:
+    - Adjusted collision box of vaults to make consoles less awkward to access. This is a breaking change that will likely require repositioning some inserters.
+  Balancing:
+    - Rebalanced vault protection pylon health (2336 -> 1200) and regeneration (-120/s -> 50/s)
   Bugfixes:
     - Fixed bunnyhop would generate more map chunks than intended with certain settings
 ---------------------------------------------------------------------------------------------------
