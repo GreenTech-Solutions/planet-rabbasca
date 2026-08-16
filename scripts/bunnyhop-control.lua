@@ -194,12 +194,11 @@ local function on_charge_bunnyhop(event)
 
     local offset = storage.last_bunnyhops[cid][surface.index]
     if not (offset and offset.x and offset.y) then offset = {x = 0, y = 0} end
-    local radius = surface.get_starting_area_radius()
+    local radius = 3
     if not surface.is_chunk_generated({ offset.x / 32, offset.y / 32 }) then
       surface.request_to_generate_chunks(offset, radius / 32)
       surface.force_generate_chunk_requests()
     end
-    player.force.chart(surface, {{-radius + offset.x, -radius + offset.y}, {radius + offset.x, radius + offset.y}})
     local start_pos = surface.find_non_colliding_position("character", offset, radius, 1) or {x = 0, y = 0}
     
     -- Teleport player

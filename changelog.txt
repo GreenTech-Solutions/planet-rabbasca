@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.21.06
+Date: ????
+  Bugfixes:
+    - Fixed bunnyhop would generate more map chunks than intended with certain settings
+---------------------------------------------------------------------------------------------------
 Version: 0.21.5
 Date: 2026-08-10
   Bugfixes:
