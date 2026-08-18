@@ -1,8 +1,9 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.22.0
-Date: ????
+Date: 2026-08-18
   Changes:
-    - Adjusted collision box of vaults to make consoles less awkward to access. This is a breaking change that will likely require repositioning some inserters.
+    - Adjusted collision box of vaults to make consoles less awkward to access. This might require repositioning some inserters around captured vaults
+    - Vaults are now considered tall for the toggle tall buildings shortcut
   Balancing:
     - Rebalanced vault protection pylon health (2336 -> 1200) and regeneration (-120/s -> 50/s)
   Bugfixes:
