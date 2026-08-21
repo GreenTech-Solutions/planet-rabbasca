@@ -212,19 +212,20 @@ function M.attempt_bunnyhop(player)
     local cid = player.character.unit_number
     local last_hops = storage.last_bunnyhops and storage.last_bunnyhops[cid] or { }
     local cooldown_until = last_hops["next_cooldown"] or 0
-    if cooldown_until > game.tick then
-      local seconds = math.ceil((storage.last_bunnyhops[cid]["next_cooldown"] - game.tick) / 60)
-      local max_range, max_weight = get_max_range_and_weight(player.force)
-      local _, weight = get_character_weight_label(player.character, max_weight)
-      player.create_local_flying_text { text = { "", { "rabbasca-extra.bunnyhop-on-cooldown", seconds }, "\n", weight }, create_at_cursor = true }
-      return
-    end 
     local armor = player.get_inventory(defines.inventory.character_armor)[1]
     if armor and armor.valid_for_read and armor.grid then
       for _, eq in pairs(armor.grid.equipment) do
         if eq.name == "bunnyhop-engine-equipment" then
-          player.create_local_flying_text { text = { "rabbasca-extra.bunnyhop-initiating" }, create_at_cursor = true }
-          M.show_bunnyhop_ui(player, eq)
+          if cooldown_until > game.tick then
+            local seconds = math.ceil((storage.last_bunnyhops[cid]["next_cooldown"] - game.tick) / 60)
+            local max_range, max_weight = get_max_range_and_weight(player.force)
+            max_weight = max_weight * (eq.quality.default_multiplier or 1)
+            local _, weight = get_character_weight_label(player.character, max_weight)
+            player.create_local_flying_text { text = { "", { "rabbasca-extra.bunnyhop-on-cooldown", seconds }, "\n", weight }, create_at_cursor = true }
+          else
+            player.create_local_flying_text { text = { "rabbasca-extra.bunnyhop-initiating" }, create_at_cursor = true }
+            M.show_bunnyhop_ui(player, eq)
+          end 
           return
         end
       end
