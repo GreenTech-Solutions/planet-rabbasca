@@ -79,6 +79,7 @@ function output.register_alertable(entity)
 end
 
 function output.update_alertness(surface, position)
+  if not surface.valid then return end
   local data = storage.alertness_data or { vaults = { }, meltdowns = { } }
   local active_vaults_count = 0
   for _, _ in pairs(data.vaults) do

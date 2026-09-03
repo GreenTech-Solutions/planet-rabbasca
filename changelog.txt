@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.22.2
+Date: 2026-09-04
+  Bugfixes:
+    - Fixed that modded electric energy interfaces could be placed on rabbasca
+    - Fixed possible crash when deleting rabbasca's surface in editor mode
+---------------------------------------------------------------------------------------------------
 Version: 0.22.1
 Date: 2026-08-21
   Bugfixes:
