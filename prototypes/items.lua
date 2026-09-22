@@ -258,7 +258,7 @@ util.merge {
       spoil_ticks = 0,
       spoil_result = nil,
       weight = 20 * kg,
-      fuel_category = "nutrients",
+      fuel_categories = { "nutrients" },
       fuel_value = "17.63MJ",
       burnt_result = "plastic-bottle",
       subgroup = "rabbasca-processes",
@@ -284,7 +284,7 @@ util.merge { data.raw["item"]["rocket-fuel"],
     weight = 100 * kg,
     subgroup = "rabbasca-processes",
     order = "a[raw-resource]-a[carotenoid]",
-    fuel_category = "carotene",
+    fuel_categories = { "carotene" },
     fuel_value = "720kJ"
 },
 {

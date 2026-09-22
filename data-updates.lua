@@ -1,7 +1,7 @@
-data.raw["item"]["beta-carotene-barrel"].fuel_category = "carotene"
+data.raw["item"]["beta-carotene-barrel"].fuel_categories = { "carotene" }
 data.raw["item"]["beta-carotene-barrel"].fuel_value = "27.35MJ"
 
-data.raw["item"]["omega-carotene-barrel"].fuel_category = "carotene"
+data.raw["item"]["omega-carotene-barrel"].fuel_categories = { "carotene" }
 data.raw["item"]["omega-carotene-barrel"].fuel_value = "12.3GJ"
 
 for _, lab in pairs(data.raw["lab"]) do
