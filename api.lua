@@ -275,6 +275,7 @@ local function create_infused_thing_with_effect(original, extra_cost)
         type = "recipe",
         name = new.name,
         enabled = false,
+        requires_ingredients_to_unlock_results = true,
         energy_required = 30,
         ingredients = util.merge {
             extra_cost,

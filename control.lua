@@ -34,7 +34,7 @@ local function handle_script_events(event)
     end
   elseif effect_id == "rabbasca_on_modulate_vault_security" then
     local from = Rabbasca.get_spoiled_in(event)
-    if not from then return end
+    if not (from and from.name == "rabbasca-vault-crafter") then return end
     local recipe, quality = from.get_recipe()
     if not recipe then return end
     if recipe.name == "rabbasca-quality-assurance" then
