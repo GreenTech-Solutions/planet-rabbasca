@@ -54,6 +54,6 @@ for _, recipe in pairs(data.raw["recipe"]) do
 end
 
 -- non-generalizable things 
-Rabbasca.make_complex_machinery(data.raw["item"]["space-platform-foundation"])
+Rabbasca.make_complex_machinery(data.raw["recipe"]["space-platform-foundation"])
 -- Muluna compatibility
-Rabbasca.make_complex_machinery(data.raw["item"]["low-density-space-platform-foundation"])
+Rabbasca.make_complex_machinery(data.raw["recipe"]["low-density-space-platform-foundation"])

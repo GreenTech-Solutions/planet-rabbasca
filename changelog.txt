@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.22.4
+Date: 2026-09-04
+  Bugfixes:
+    - Fixed crash when modulate alertness item is created outside of a vault
+    - Fixed machining assembler could not craft space platform foundation anymore
+---------------------------------------------------------------------------------------------------
 Version: 0.22.3
 Date: 2026-09-22
   Changes:
