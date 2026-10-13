@@ -15,10 +15,10 @@ return {
     hide_from_stats = true,
     hide_from_signal_gui = true,
     hidden_in_factoriopedia = true,
-    energy_required = 0.25,
+    energy_required = 5,
     ingredients = { },
-    results = { {type = "item", name = "rabbasca-warp-sequence", amount = 1, always_fresh = true } },
-    main_product = "rabbasca-warp-sequence",
+    results = { },
+    raise_on_crafted = true,
     crafting_machine_tint = {primary = tint or {1, 1, 1}},
     categories = { "rabbasca-remote" },
     subgroup = "rabbasca-remote-warping",
@@ -32,6 +32,23 @@ local warp_icons = {
 }
 
 data:extend {
+  {
+    type = "module-category",
+    name = "rabbasca-speedup"
+  },
+  {
+    type = "module",
+    name = "rabbasca-pylon-speedup-module",
+    icon = "__rabbasca-assets__/graphics/icons/warp.png",
+    icon_size = 64,
+    tier = 0,
+    effect = { speed = 7 },
+    flags = { "ignore-spoil-time-modifier" },
+    category = "rabbasca-speedup",
+    stack_size = 1,
+    weight = 0,
+    spoil_ticks = 2 * second
+  },
   {
     type = "virtual-signal",
     name = "rabbasca-warp-inventory",
@@ -130,6 +147,22 @@ data:extend {
     minable = { result = "rabbasca-warp-pylon", mining_time = 1 },
     placeable_by = { item = "rabbasca-warp-pylon", count = 1 },
     max_health = 240,
+    module_slots = 7,
+    allowed_effects = { "speed" },
+    allowed_module_categories = { "rabbasca-speedup" },
+    effect_receiver = { 
+      uses_beacon_effects = false,
+      uses_module_effects = true,
+      uses_surface_effects = true,
+    },
+    icons_positioning = {
+      {
+        inventory_index = defines.inventory.crafter_modules,
+        max_icons_per_row = 7,
+        max_icon_rows = 2,
+        scale = 0.25
+      }
+    },
     surface_conditions = {
       { property = "gravity", min = 0.01 }
     },
@@ -222,17 +255,8 @@ data:extend {
         { type = "item", name = "haronite-plate",  amount = 4 },
     },
     results = { { type = "item", name = "rabbasca-warp-pylon", amount = 1 } },
-    categories = { "complex-machinery" }
+    categories = { "complex-machinery" },
   },
-  Rabbasca.make_trigger_item({
-    name = "rabbasca-warp-sequence",
-    categories = { "rabbasca-remote" },
-    subgroup = "rabbasca-remote-warping",
-    order = "b[warp-sequence]",
-    icons = warp_icons,
-    hidden = false,
-    hidden_in_factoriopedia = false,
-  }, "rabbasca_on_warp_attempt"),
 {
     type = "recipe-category",
     name = "rabbasca-remote",
@@ -257,16 +281,18 @@ make_warp_sequence("rabbasca-warp-sequence-upgrade", data.raw["upgrade-item"]["u
 {
     type = "recipe",
     name = "rabbasca-warp-sequence",
-    icon = "__rabbasca-assets__/graphics/icons/warp.png",
-    icon_size = 64,
+    icons = warp_icons,
+    subgroup = "rabbasca-remote-warping",
+    order = "b[warp-sequence]",
     enabled = false,
     hidden = false,
     hide_from_player_crafting = true,
     hide_from_stats = true,
     hide_from_signal_gui = true,
-    energy_required = 7,
+    energy_required = 5,
     ingredients = { },
-    results = { {type = "item", name = "rabbasca-warp-sequence", amount = 1, always_fresh = true } },
+    results = { },
+    raise_on_crafted = true,
     categories = { "rabbasca-remote" },
     crafting_machine_tint = {primary = {0.3, 0.35, 0.4}}
 },

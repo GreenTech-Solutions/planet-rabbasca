@@ -1,3 +1,4 @@
+local eventhandler = require("event_handler")
 local M = require("__planet-rabbasca__.scripts.warp.pylon")
 local rebuild_network = require("__planet-rabbasca__.scripts.warp.rebuild-warp-network")
 
@@ -56,15 +57,7 @@ script.on_nth_tick(20, function(event)
   end
 end)
 
-local build_events = {
-    defines.events.on_built_entity,
-    defines.events.on_robot_built_entity,
-    defines.events.on_space_platform_built_entity,
-    defines.events.script_raised_built,
-    defines.events.script_raised_revive
-}
-
-script.on_event(build_events, function(event)
+local function on_built(event)
   local e = event.entity
   if e.name == "entity-ghost"
   or e.name == "tile-ghost" then
@@ -81,7 +74,7 @@ script.on_event(build_events, function(event)
     local new = sections.add_section(M.logistics_group_name())
     if new then new.multiplier = -1 end
   end
-end)
+end
 
 script.on_event(defines.events.script_raised_teleported, function(event)
   if Rabbasca.warpers.pylons[event.entity.name] then
@@ -113,5 +106,25 @@ end)
 script.on_event(defines.events.on_marked_for_deconstruction, function(event)
   M.mark_chunk_dirty(event.entity.surface_index, M.chunk_id(event.entity.position))
 end)
+
+local function on_warp_attempt(event)
+    M.attempt_build_ghost(event.entity)
+end
+
+eventhandler.add_lib({
+    events = {
+        [prototypes.recipe["rabbasca-warp-sequence"].on_crafted_event] = on_warp_attempt,
+        [prototypes.recipe["rabbasca-warp-sequence-building"].on_crafted_event] = on_warp_attempt,
+        [prototypes.recipe["rabbasca-warp-sequence-tile"].on_crafted_event] = on_warp_attempt,
+        [prototypes.recipe["rabbasca-warp-sequence-module"].on_crafted_event] = on_warp_attempt,
+        [prototypes.recipe["rabbasca-warp-sequence-reverse"].on_crafted_event] = on_warp_attempt,
+        [prototypes.recipe["rabbasca-warp-sequence-upgrade"].on_crafted_event] = on_warp_attempt,
+        [defines.events.on_built_entity] = on_built,
+        [defines.events.on_robot_built_entity] = on_built,
+        [defines.events.on_space_platform_built_entity] = on_built,
+        [defines.events.script_raised_built] = on_built,
+        [defines.events.script_raised_revive] = on_built,
+    }
+})
 
 return M

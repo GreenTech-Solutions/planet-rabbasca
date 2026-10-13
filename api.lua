@@ -2,7 +2,7 @@ if Rabbasca then return end
 
 Rabbasca = { 
     bunnyhop = { },
-    warpers  = helpers.stage == "runtime" and prototypes.mod_data["rabbasca-warpers"].data,
+    warpers = helpers.stage == "runtime" and prototypes.mod_data["rabbasca-warpers"].data,
     warper_names = helpers.stage == "runtime" and { pylons = { }, uplinks = { } }
 }
 

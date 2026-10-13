@@ -346,14 +346,16 @@ function M.attempt_build_ghost(pylon)
         (pylon.force.recipes["rabbasca-warp-sequence-upgrade"].enabled and attempt_warp(pylon, "upgrades", pdata, inventory, range, try_upgrade)) or
         (pylon.force.recipes["rabbasca-warp-sequence-module"].enabled and attempt_warp(pylon, "modules", pdata, inventory, range, try_warp_module))
     then
-        pylon.set_recipe("rabbasca-warp-sequence-building")
+        pylon.get_inventory(defines.inventory.crafter_modules).insert({ name = "rabbasca-pylon-speedup-module", count = 1 })
     else 
         for _, chunkid in pairs(pdata.chunks) do
             for _, queue in pairs(storage.warp_chunks[pylon.surface_index][chunkid].queue) do
-                local next_candidate = next(queue) and queue[next_candidate]
-                if next_candidate and next_candidate.entity and next_candidate.entity.valid then
-                    pylon.set_recipe("rabbasca-warp-sequence")
-                    return
+                for _, values in pairs(queue) do
+                    for _, quality in pairs(values) do
+                        for _, candidate in pairs(quality) do
+                            if candidate.entity and candidate.entity.valid then return end
+                        end
+                    end
                 end
             end
             -- confirm actually empty
