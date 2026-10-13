@@ -350,7 +350,8 @@ function M.attempt_build_ghost(pylon)
     else 
         for _, chunkid in pairs(pdata.chunks) do
             for _, queue in pairs(storage.warp_chunks[pylon.surface_index][chunkid].queue) do
-                if next(queue) ~= nil then
+                local next_candidate = next(queue) and queue[next_candidate]
+                if next_candidate and next_candidate.entity and next_candidate.entity.valid then
                     pylon.set_recipe("rabbasca-warp-sequence")
                     return
                 end

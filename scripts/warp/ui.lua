@@ -26,7 +26,6 @@ local function create_gui(player, pylon)
             position = defines.relative_gui_position.right
         }
     }.add{type = "frame", style = "entity_frame"}
-
     local inv = inventory_frame.add{
         type = "inventory",
         slots_per_row = 8,
