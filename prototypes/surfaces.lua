@@ -251,7 +251,7 @@ PlanetsLib:extend({
     },
     map_gen_settings = map_gen,
     parked_platforms_orientation = 0.55,
-    draw_orbit = false,
+    draw_orbit = true,
     orbit = {
       orientation = 0.9,
       distance = 1.8,
@@ -259,12 +259,6 @@ PlanetsLib:extend({
         type = "planet",
         name = gleba.name,
       },
-      sprite = {
-        type = "sprite",
-        filename = "__rabbasca-assets__/graphics/textures/kryzeth-rabbasca-orbit.png",
-        size = 470,
-        scale = 0.26,
-      }
     },
     platform_surface_render_parameters = platform_render,
     platform_procession_set =
