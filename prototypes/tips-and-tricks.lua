@@ -15,7 +15,7 @@ data:extend {
         generate_map = true,
         hide_health_bars = false,
         checkboard = false,
-        [[
+        init = [[
             require("__planet-rabbasca__.scripts.tips-simulations")
             simulation_briefing()
         ]],
@@ -32,6 +32,16 @@ data:extend {
         type = "research",
         technology = "planet-discovery-rabbasca",
     },
+    simulation = {
+        planet = "rabbasca",
+        generate_map = true,
+        hide_health_bars = false,
+        checkboard = false,
+        init = [[
+            require("__planet-rabbasca__.scripts.tips-simulations")
+            simulation_vaults()
+        ]],
+    }
 },
 {
     type = "tips-and-tricks-item",

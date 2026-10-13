@@ -346,7 +346,15 @@ function M.attempt_build_ghost(pylon)
         (pylon.force.recipes["rabbasca-warp-sequence-upgrade"].enabled and attempt_warp(pylon, "upgrades", pdata, inventory, range, try_upgrade)) or
         (pylon.force.recipes["rabbasca-warp-sequence-module"].enabled and attempt_warp(pylon, "modules", pdata, inventory, range, try_warp_module))
     then
-        pylon.get_inventory(defines.inventory.crafter_modules).insert({ name = "rabbasca-pylon-speedup-module", count = 1 })
+        local inv = pylon.get_inventory(defines.inventory.crafter_modules)
+        for i = 1,#inv do
+            if not inv[i].valid_for_read then
+                inv[i].set_stack({ name = "rabbasca-pylon-speedup-module-"..i, count = 1 })
+                return
+            else
+                inv[i].spoil_percent = 0
+            end
+        end
     else 
         for _, chunkid in pairs(pdata.chunks) do
             for _, queue in pairs(storage.warp_chunks[pylon.surface_index][chunkid].queue) do

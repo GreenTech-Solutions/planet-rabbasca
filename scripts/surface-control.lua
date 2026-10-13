@@ -51,7 +51,6 @@ function output.deregister_alertable(id)
 end
 
 function output.register_alertable(entity)
-  if entity.surface.name ~= "rabbasca" then return end
   if not storage.alertness_data then
     local v = entity.surface.find_entities_filtered { name = "rabbasca-vault-console", force = game.forces.player }
     local m = entity.surface.find_entities_filtered { name = "rabbasca-vault-meltdown" }

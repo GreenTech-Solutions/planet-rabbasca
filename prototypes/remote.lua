@@ -31,23 +31,29 @@ local warp_icons = {
       { icon = "__rabbasca-assets__/graphics/icons/warp.png", icon_size = 64, scale = 0.25, shift = {0, -3} }
 }
 
+for i = 1,7 do
+  data:extend{{
+    type = "module",
+    name = "rabbasca-pylon-speedup-module-"..i,
+    icons = Rabbasca.icons({
+      { icon = "__rabbasca-assets__/graphics/icons/warp.png" },
+      { icon = "__core__/graphics/icons/technology/constants/constant-speed.png", icon_size = 128, scale = 1, shift = { 4.3, 2.7 }, floating = true }
+    }),
+    tier = 0,
+    effect = { speed = 2 * i - 1 },
+    flags = { "ignore-spoil-time-modifier", "spawnable" },
+    localised_name = { "item-name.rabbasca-pylon-speedup-module", tostring(i) },
+    category = "rabbasca-speedup",
+    stack_size = 1,
+    weight = 0,
+    spoil_ticks = 2.5 * second + 2
+  }}
+end
+
 data:extend {
   {
     type = "module-category",
     name = "rabbasca-speedup"
-  },
-  {
-    type = "module",
-    name = "rabbasca-pylon-speedup-module",
-    icon = "__rabbasca-assets__/graphics/icons/warp.png",
-    icon_size = 64,
-    tier = 0,
-    effect = { speed = 7 },
-    flags = { "ignore-spoil-time-modifier" },
-    category = "rabbasca-speedup",
-    stack_size = 1,
-    weight = 0,
-    spoil_ticks = 2 * second
   },
   {
     type = "virtual-signal",
