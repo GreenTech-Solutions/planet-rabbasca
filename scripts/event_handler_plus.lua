@@ -131,6 +131,7 @@ handler.add_libraries = function(libs)
   end
 end
 
+-- Simulations don't call script.on_load and script.on_init, provide alternative on_simulation_init and call this manually
 handler.init_simulation = function()
   assert(game and game.simulation, "Must not call init_simulation outside of a simulation")
   register_remote_interfaces()

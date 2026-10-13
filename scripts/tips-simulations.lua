@@ -1,29 +1,50 @@
 require("__core__/lualib/story")
 require("__planet-rabbasca__.control")
-Rabbasca.events.init_simulation()
+Rabbasca.events.init_simulation() -- simulations dont call on_init or on_load
 
 function simulation_warp_network()
     local surface = game.surfaces[1]
     surface.ignore_surface_conditions = true
-    local player = game.simulation.create_test_player { name = "Carrot" }
+    local player = game.simulation.create_test_player { name = "carrot" }
     player.force.technologies["interplanetary-construction-3"].research_recursive()
 
     player.teleport({-30, -25})
     game.simulation.camera_player = player
     game.simulation.camera_alt_info = true
-    game.simulation.camera_zoom = 0.5
+    game.simulation.camera_zoom = 1.3
     game.simulation.camera_position = { -30, -30 }
     game.simulation.camera_player_cursor_position = { -30, -25 }
     game.simulation.gui_tooltip_interval = 0.5
 
+    surface.build_checkerboard({{-64, -64}, {64, 64}})
+
+    local uplink = surface.create_entity {
+        name = "rabbasca-warp-uplink",
+        position = { -30, -30 },
+        force = player.force,
+        raise_built = true
+    }
+    local tiles = {  
+        { position = { -4, 0 }, name = "rabbasca-energetic-concrete" },
+        { position = { -5, 0 }, name = "rabbasca-energetic-concrete" },
+        { position = { -4, 1 }, name = "rabbasca-energetic-concrete" },
+        { position = { -5, 1 }, name = "rabbasca-energetic-concrete" },
+    }
+    surface.set_tiles(tiles, true)
     local pylon = surface.create_entity {
         name = "rabbasca-warp-pylon",
-        position = { 0, 0 },
+        position = { -4, 1 },
         force = player.force,
         raise_built = true
     }
 
-    surface.build_checkerboard({{-64, -64}, {64, 64}})
+    local chest = surface.create_entity{
+        name = "steel-chest",
+        position = { 0, 0},
+        force = player.force,
+    }
+    chest.get_inventory(defines.inventory.chest).insert({ name = "steel-plate", count = "1000" })
+    chest.get_inventory(defines.inventory.chest).insert({ name = "coal", count = "1000" })
 
     player.insert("rocket-silo")
     player.insert("iron-plate")
@@ -41,15 +62,6 @@ function simulation_warp_network()
           condition = story_elapsed_check(3),
         },
         { 
-            init = function() 
-                uplink = surface.create_entity {
-                    name = "rabbasca-warp-uplink",
-                    position = { -30, -30 },
-                    force = player.force,
-                    raise_built = true
-                }
-                table.insert(storage.inventory_warpers, uplink)
-            end,
             condition = function() return game.simulation.move_cursor({ position = uplink.position, speed = 0.2 }) end,
             action = function()
                 player.opened = uplink
@@ -63,7 +75,6 @@ function simulation_warp_network()
             end,
             action = function() 
                 game.simulation.control_press{ control = "inventory-transfer", notify = true } 
-                assert(false, serpent.block(storage))
             end
         },
         {
@@ -75,6 +86,75 @@ function simulation_warp_network()
             action = function()
                 game.simulation.camera_position = { 0, 5 }
                 game.simulation.camera_player_cursor_position = { 0, 5 }
+                game.simulation.camera_zoom = 0.7
+            end
+        },
+        {
+            condition = story_elapsed_check(3),
+            action = function()
+                surface.create_entity{ name = "entity-ghost", inner_name = "rocket-silo", force = player.force, position = {-10, 0}, raise_built = true }
+                surface.create_entity{ name = "entity-ghost", inner_name = "rocket-silo", force = player.force, position = {10, 0}, raise_built = true }
+                surface.create_entity{ name = "entity-ghost", inner_name = "assembling-machine-1", force = player.force, position = {-2, 5}, raise_built = true }
+                surface.create_entity{ name = "entity-ghost", inner_name = "assembling-machine-1", force = player.force, position = {2, 5}, raise_built = true }
+                for x = 4,5 do
+                for y = 0,1 do
+                    surface.create_entity{ name = "tile-ghost", inner_name = "rabbasca-energetic-concrete", force = player.force, position = {x, y}, raise_built = true }
+                end
+                end
+                surface.create_entity{ name = "entity-ghost", inner_name = "rabbasca-warp-pylon", force = player.force, position = {5, 1}, raise_built = true }
+            end
+        },
+        {
+            condition = story_elapsed_check(11),
+            action = function()
+                local silo = surface.find_entity("rocket-silo", {-10, 0}) or surface.find_entity("rocket-silo", {10, 0})
+                silo.order_deconstruction(player.force)
+            end
+        },
+        {
+            condition = story_elapsed_check(6),
+            action = function()
+                local asm = surface.find_entity("assembling-machine-1", {-2, 5}) or surface.find_entity("assembling-machine-1", {2, 5})
+                asm.order_upgrade{ target = "assembling-machine-2", force = player.force }
+            end
+        },
+        {
+            condition = story_elapsed_check(7),
+            action = function()
+                player.insert("rabbasca-energetic-concrete")
+                player.opened = uplink
+            end
+        },
+        { 
+            init = function()
+                player.insert("rabbasca-energetic-concrete")
+                player.opened = uplink
+            end,
+            condition = function()
+                local target = game.simulation.get_slot_position{ inventory_index = defines.inventory.character_main, slot_index = 1, inventory = "character" }
+                return game.simulation.move_cursor({ position = target, speed = 0.2 }) and story_elapsed_check(5)
+            end,
+            action = function() 
+                game.simulation.control_press{ control = "stack-transfer", notify = true } 
+            end
+        },
+        { 
+            condition = story_elapsed_check(2),
+            action = function() 
+                player.opened = nil
+            end
+        },
+        { 
+            condition = story_elapsed_check(10),
+            action = function() 
+                chest.order_deconstruction(player.force)
+            end
+        },
+        { 
+            condition = story_elapsed_check(10),
+            action = function() 
+                player.teleport({0,-5})
+                player.opened = pylon
             end
         },
       }

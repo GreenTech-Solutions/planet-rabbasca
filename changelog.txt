@@ -1,6 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.23.0
+Date: 2026-10-13
+  Changes:
+    - Warp pylons now gradually speed up with each successful warp
+    - Added simulations to some tips and tricks entries
+  Balancing:
+    - Reduced initial warp sequence crafting time (7s -> 5s)
+  Bugfixes:
+    - Fixed a case where warp pylons stayed active when the last valid warp target was removed
+---------------------------------------------------------------------------------------------------
 Version: 0.22.4
-Date: 2026-09-04
+Date: 2026-10-04
   Bugfixes:
     - Fixed crash when modulate alertness item is created outside of a vault
     - Fixed machining assembler could not craft space platform foundation anymore
