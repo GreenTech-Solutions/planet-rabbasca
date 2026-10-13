@@ -1,4 +1,3 @@
-local eventhandler = require("event_handler")
 local M = require("__planet-rabbasca__.scripts.warp.pylon")
 local rebuild_network = require("__planet-rabbasca__.scripts.warp.rebuild-warp-network")
 
@@ -111,7 +110,7 @@ local function on_warp_attempt(event)
     M.attempt_build_ghost(event.entity)
 end
 
-eventhandler.add_lib({
+Rabbasca.events.add_lib({
     events = {
         [prototypes.recipe["rabbasca-warp-sequence"].on_crafted_event] = on_warp_attempt,
         [prototypes.recipe["rabbasca-warp-sequence-building"].on_crafted_event] = on_warp_attempt,

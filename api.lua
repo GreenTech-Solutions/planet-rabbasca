@@ -3,7 +3,8 @@ if Rabbasca then return end
 Rabbasca = { 
     bunnyhop = { },
     warpers = helpers.stage == "runtime" and prototypes.mod_data["rabbasca-warpers"].data,
-    warper_names = helpers.stage == "runtime" and { pylons = { }, uplinks = { } }
+    warper_names = helpers.stage == "runtime" and { pylons = { }, uplinks = { } },
+    events = helpers.stage == "runtime" and require("__planet-rabbasca__.scripts.event_handler_plus")
 }
 
 if helpers.stage == "runtime" then

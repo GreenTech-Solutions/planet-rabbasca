@@ -6,11 +6,7 @@ local bunnyhop = require("__planet-rabbasca__.scripts.bunnyhop-control")
 
 local function handle_script_events(event)
   local effect_id = event.effect_id
-  if effect_id == "rabbasca_on_warp_attempt" then
-    local from = Rabbasca.get_spoiled_in(event)
-    if not (from and Rabbasca.warpers.pylons[from.name]) then return end
-    warp.attempt_build_ghost(from)
-  elseif effect_id == "rabbasca_register_alertable" then
+  if effect_id == "rabbasca_register_alertable" then
     local from = event.source_entity or event.target_entity
     if not from then return end
     rutil.register_alertable(from)
@@ -149,10 +145,6 @@ end
 
 script.on_event(defines.events.on_script_trigger_effect, handle_script_events)
 
-script.on_load(function()
-  bunnyhop.register_bunnyhop_handler()
-end)
-
 script.on_event(defines.events.on_object_destroyed, function(event)
   if event.type == defines.target_type.entity then
     rutil.deregister_alertable(event.registration_number)
@@ -248,8 +240,19 @@ local function create_rabbasca_force()
   game.forces.player.set_cease_fire(force, false)
 end
 
-script.on_init(function()
-  create_rabbasca_force()
-  give_starter_items()
-  warp.init_storage()
-end)
+Rabbasca.events.add_lib(
+  {
+    on_load = function()
+      bunnyhop.register_bunnyhop_handler()
+    end,
+    on_init = function()
+      create_rabbasca_force()
+      give_starter_items()
+      warp.init_storage()
+    end,
+    on_simulation_init = function()
+      create_rabbasca_force()
+      warp.init_storage()
+    end
+  }
+)
