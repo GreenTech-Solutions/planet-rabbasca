@@ -5,16 +5,17 @@ local tile_trigger_effects = require("__space-age__/prototypes/tile/tile-trigger
 -- Some globals black magic or something happening here, required for water borders
 table.insert(water_tile_type_names, "rabbasca-harenic-sludge")
 table.insert(water_tile_type_names, "harenic-lava")
+table.insert(lava_tile_type_names, "harenic-lava")
 
 local is_dark_mode = settings.startup["rabbasca-map-dark-mode"].value
 
 local lava_effect = util.merge { data.raw["tile-effect"]["lava"],
 {
   name = "harenic-lava",
-  foam_color = { 155, 60, 130 },
-  
 }}
-lava_effect.water.textures[2].filename = "__rabbasca-assets__/graphics/recolor/textures/lava.png"
+lava_effect.foam_color = { 155, 60, 130 }
+lava_effect.water.image_textures[1].filename = "__rabbasca-assets__/graphics/recolor/textures/lava.png"
+
 local lava = util.merge{ table.deepcopy(data.raw["tile"]["lava"]), {
     name = "harenic-lava",
     effect = "harenic-lava",
