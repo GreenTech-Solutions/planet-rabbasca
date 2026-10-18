@@ -69,7 +69,19 @@ function output.register_alertable(entity)
   end
   if entity.name == "rabbasca-vault-console" then
     local id, _, _ = script.register_on_object_destroyed(entity)
-    storage.alertness_data.vaults[id] = { entity.surface, entity.position }
+    local visual = rendering.draw_arc {
+      min_radius = 12,
+      max_radius = 16,
+      color = { 0, 0.3, 0.5, 0.3 },
+      start_angle = -math.pi * 0.5,
+      angle = math.pi * 2,
+      target = { type = "entity", entity = entity, offset = { -1.5, -2 } },
+      surface = entity.surface,
+      forces = entity.force,
+      only_in_alt_mode = true,
+      render_mode = "chart",
+    }
+    storage.alertness_data.vaults[id] = { entity.surface, entity.position, visual }
   elseif entity.name == "rabbasca-vault-meltdown" then
     local id, _, _ = script.register_on_object_destroyed(entity)
     storage.alertness_data.meltdowns[id] = { entity.surface, entity.position }
@@ -211,5 +223,14 @@ function output.update_evolution_bar(player)
         create_evolution_bar(player)
     end
 end
+
+script.on_nth_tick(120, function(_)
+  if not storage.alertness_data then return end
+  for _, v in pairs(storage.alertness_data.vaults) do
+    if v[3] and v[3].valid and v[3].target.entity.valid then
+      v[3].angle = math.pi * (2 * (v[3].target.entity.get_health_ratio() or 1))
+    end
+  end
+end)
 
 return output
