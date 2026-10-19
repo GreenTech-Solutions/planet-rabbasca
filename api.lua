@@ -309,6 +309,12 @@ function Rabbasca.create_ears_variant(thing, tech, extra_cost)
             type = "unlock-recipe",
             recipe = new_thing
         })
+        table.insert(unlocks,       
+        {
+            type = "unlock-recipe",
+            recipe = new_thing.."-recycling",
+            hidden = true
+        })
     end
     return new_thing
 end

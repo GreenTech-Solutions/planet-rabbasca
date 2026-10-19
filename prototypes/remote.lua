@@ -39,6 +39,7 @@ for i = 1,7 do
       { icon = "__rabbasca-assets__/graphics/icons/warp.png" },
       { icon = "__core__/graphics/icons/technology/constants/constant-speed.png", icon_size = 128, scale = 1, shift = { 4.3, 2.7 }, floating = true }
     }),
+    hidden = true,
     tier = 0,
     effect = { speed = 2 * i - 1 },
     flags = { "ignore-spoil-time-modifier", "spawnable" },
@@ -172,7 +173,7 @@ data:extend {
     surface_conditions = {
       { property = "gravity", min = 0.01 }
     },
-    trash_inventory_size = 1,
+    trash_inventory_size = 10,
     energy_usage = "1MW",
     crafting_speed = 1,
     crafting_speed_quality_multiplier = { }, -- filled in final-fixes
