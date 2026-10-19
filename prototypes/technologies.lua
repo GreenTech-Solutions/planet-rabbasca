@@ -596,7 +596,7 @@ data:extend {
     name = "interplanetary-construction-3",
     icon = "__rabbasca-assets__/graphics/by-hurricane/conduit-icon-big.png",
     icon_size = 640,
-    prerequisites = { "interplanetary-construction-2" },
+    prerequisites = { "interplanetary-construction-2", "metallurgic-science-pack", "electromagnetic-science-pack", "agricultural-science-pack" },
     effects = {
       {
         type = "unlock-recipe",
@@ -623,7 +623,6 @@ data:extend {
         {"metallurgic-science-pack", 1},
         {"electromagnetic-science-pack", 1},
         {"agricultural-science-pack", 1},
-        {"cryogenic-science-pack", 1},
         {"athletic-science-pack", 1},
       }
     }

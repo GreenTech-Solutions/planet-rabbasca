@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.23.2
+Date: 2026-10-19
+  Changes:
+    - Ongoing hacks now show the remaining duration in map view
+  Bugfixes:
+    - Pylon speedup indicators no longer show as a valid module in other machines
+    - Fixed recycling recipes for ears variants were never unlocked
+  Balancing:
+    - Increased warp pylon trash inventory size (1 -> 10)
+    - Interplanetary construction 3 no longer requires cryogenic-science-pack
+    - [with muluna] Interplanetary construction 3 now requires interstellar-science-pack
+---------------------------------------------------------------------------------------------------
 Version: 0.23.1
 Date: 2026-10-15
   Changes:
