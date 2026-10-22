@@ -243,6 +243,12 @@ local function create_infused_thing_with_effect(original, extra_cost)
     if (not item) or item.hidden or not item.subgroup then return nil end
     local new = create_ears_entity(original)
     if not new then return end
+    -- RenaiTransportation looks up a thrower's range by entity name (mod-data "RTRealRange<name>"):
+    -- without its own entry the copy crashes Renai when built
+    local range = data.raw["mod-data"] and data.raw["mod-data"]["RTRealRange" .. original.name]
+    if range then
+        data:extend { { type = "mod-data", name = "RTRealRange" .. new.name, data = table.deepcopy(range.data) } }
+    end
     if not extra_cost then
         new.hidden = true
         new.hidden_in_factoriopedia = true
